@@ -74,7 +74,7 @@ const Navbar = () => {
               className={`p-2 rounded-lg transition-colors ${
                 scrolled
                   ? isDark ? 'text-yellow-400 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
-                  : 'text-white hover:bg-white/10'
+                  : isDark ? 'text-yellow-400 hover:bg-gray-800' : 'text-white hover:bg-white/10'
               }`}
               aria-label="Toggle theme"
             >
@@ -165,8 +165,8 @@ const Navbar = () => {
                   toggleTheme();
                   setIsOpen(false);
                 }}
-                className={`flex items-center space-x-2 w-full py-2 px-3 rounded-lg ${
-                  isDark ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
+                className={`flex items-center space-x-2 w-full py-2 px-3 rounded-lg transition-colors ${
+                  isDark ? 'text-yellow-400 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
                 }`}
               >
                 {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
