@@ -1,20 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
   <defs>
-    <linearGradient id="carGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
     </linearGradient>
+    <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
-  <!-- Car silhouette -->
-  <path d="M10 55 L15 35 L30 25 L70 25 L85 35 L90 55 L90 70 L85 75 L80 75 L78 65 L22 65 L20 75 L15 75 L10 70 Z" fill="url(#carGradient)"/>
-  <!-- Windows -->
-  <path d="M20 35 L32 28 L50 28 L50 55 L18 55 Z" fill="#ffffff" opacity="0.9"/>
-  <path d="M54 28 L68 28 L82 35 L82 55 L54 55 Z" fill="#ffffff" opacity="0.9"/>
-  <!-- Wheels -->
-  <circle cx="25" cy="70" r="8" fill="#1f2937"/>
-  <circle cx="25" cy="70" r="4" fill="#6b7280"/>
-  <circle cx="75" cy="70" r="8" fill="#1f2937"/>
-  <circle cx="75" cy="70" r="4" fill="#6b7280"/>
-  <!-- Headlight -->
-  <ellipse cx="88" cy="45" rx="3" ry="4" fill="#fbbf24"/>
+  
+  <!-- Icon Container -->
+  <g transform="translate(10, 10)">
+    <!-- Outer ring/speed effect -->
+    <ellipse cx="20" cy="20" rx="18" ry="8" fill="none" stroke="url(#accentGradient)" stroke-width="1.5" opacity="0.6"/>
+    
+    <!-- Car body - sleek modern design -->
+    <path d="M5 28 L10 12 L22 6 L38 6 L48 12 L52 28 L52 34 L48 36 L44 36 L42 30 L18 30 L16 36 L12 36 L8 34 L8 28 Z" fill="url(#logoGradient)" filter="url(#glow)"/>
+    
+    <!-- Car window - modern angular design -->
+    <path d="M14 14 L23 9 L30 9 L38 14 L38 26 L14 26 Z" fill="#ffffff" opacity="0.95"/>
+    <path d="M32 9 L42 14 L42 26 L32 26 Z" fill="#ffffff" opacity="0.95"/>
+    
+    <!-- Speed lines -->
+    <path d="M2 20 L6 20" stroke="url(#accentGradient)" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <path d="M0 26 L4 26" stroke="url(#accentGradient)" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+    
+    <!-- Wheels with modern rims -->
+    <circle cx="17" cy="34" r="5" fill="#1e293b"/>
+    <circle cx="17" cy="34" r="2.5" fill="url(#logoGradient)"/>
+    <circle cx="43" cy="34" r="5" fill="#1e293b"/>
+    <circle cx="43" cy="34" r="2.5" fill="url(#logoGradient)"/>
+    
+    <!-- Headlight with glow -->
+    <ellipse cx="51" cy="20" rx="2" ry="3" fill="#fbbf24" filter="url(#glow)"/>
+  </g>
+  
+  <!-- Brand Name -->
+  <text x="75" y="32" font-family="'Segoe UI', system-ui, -apple-system, sans-serif" font-size="24" font-weight="700" fill="url(#logoGradient)" letter-spacing="1">
+    CESSAR<tspan fill="url(#accentGradient)">AUTO</tspan>
+  </text>
+  
+  <!-- Tagline -->
+  <text x="75" y="48" font-family="'Segoe UI', system-ui, -apple-system, sans-serif" font-size="8" fill="#94a3b8" letter-spacing="3">
+    PREMIUM RENTAL
+  </text>
 </svg>

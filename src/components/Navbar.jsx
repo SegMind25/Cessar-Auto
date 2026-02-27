@@ -43,12 +43,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center space-x-2">
-            <div className={`p-2 rounded-lg ${scrolled ? (isDark ? 'bg-primary-600' : 'bg-primary-600') : (isDark ? 'bg-gray-800' : 'bg-white')}`}>
-              <img src="/logo.svg" alt="CessarAuto" className="w-6 h-6" />
-            </div>
-            <span className={`text-2xl font-bold ${scrolled ? (isDark ? 'text-white' : 'text-gray-900') : 'text-white'}`}>
-              CessarAuto
-            </span>
+            <img src="/logo.svg" alt="CessarAuto" className={`h-10 w-auto transition-all ${scrolled ? '' : 'drop-shadow-lg'}`} />
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
