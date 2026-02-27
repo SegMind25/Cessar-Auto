@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
+import { Menu, X, Sun, Moon, Globe, Car } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center space-x-2">
             <div className={`p-2 rounded-lg ${scrolled ? (isDark ? 'bg-primary-600' : 'bg-primary-600') : (isDark ? 'bg-gray-800' : 'bg-white')}`}>
-              <img src="/logo.svg" alt="CessarAuto" className="w-6 h-6" />
+              <Car className={`w-6 h-6 ${scrolled ? 'text-white' : (isDark ? 'text-primary-600' : 'text-primary-600')}`} />
             </div>
             <span className={`text-2xl font-bold ${scrolled ? (isDark ? 'text-white' : 'text-gray-900') : 'text-white'}`}>
               CessarAuto
