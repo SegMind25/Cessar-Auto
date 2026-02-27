@@ -14,7 +14,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center space-x-2 mb-6">
-              <img src="/logo.svg" alt="CessarAuto" className="h-12 w-auto" />
+              <div className="p-2 bg-primary-600 rounded-lg">
+                <Car className="w-6 h-6 text-white" />
+              </div>
+              <span className="text-2xl font-bold">CessarAuto</span>
             </Link>
             <p className="text-gray-400 mb-6 max-w-sm">
               {t('footer.premiumCarRental')}
