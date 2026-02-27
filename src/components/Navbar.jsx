@@ -61,7 +61,7 @@ const Navbar = () => {
                     ? isActive(link.path)
                       ? 'text-primary-600'
                       : isDark ? 'text-gray-300 hover:text-primary-600' : 'text-gray-700 hover:text-primary-600'
-                    : 'text-white/80 hover:text-white'
+                    : isDark ? 'text-white/80 hover:text-white' : 'text-gray-700 hover:text-primary-600'
                 }`}
               >
                 {link.name}
@@ -74,7 +74,7 @@ const Navbar = () => {
               className={`p-2 rounded-lg transition-colors ${
                 scrolled
                   ? isDark ? 'text-yellow-400 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
-                  : isDark ? 'text-yellow-400 hover:bg-gray-800' : 'text-white hover:bg-white/10'
+                  : isDark ? 'text-yellow-400 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
               }`}
               aria-label="Toggle theme"
             >
@@ -88,7 +88,7 @@ const Navbar = () => {
                 className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-colors ${
                   scrolled
                     ? isDark ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
-                    : 'text-white hover:bg-white/10'
+                    : isDark ? 'text-gray-300 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'
                 }`}
               >
                 <Globe className="w-5 h-5" />
