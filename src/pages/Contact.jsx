@@ -4,9 +4,11 @@ import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, Car, Calendar, User } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const Contact = () => {
   const { isDark } = useTheme();
+  const { t } = useLanguage();
   const location = useLocation();
   const selectedCar = location.state?.selectedCar;
   const [submitted, setSubmitted] = useState(false);
@@ -14,7 +16,6 @@ const Contact = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
   const onSubmit = async (data) => {
-    // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 1000));
     setSubmitted(true);
     reset();
@@ -22,10 +23,10 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    { icon: Mail, label: 'Email', value: 'info@cessarauto.com', href: 'mailto:info@cessarauto.com' },
-    { icon: Phone, label: 'Phone', value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
-    { icon: MapPin, label: 'Address', value: '123 Luxury Lane, Beverly Hills, CA 90210', href: '#' },
-    { icon: Clock, label: 'Hours', value: 'Mon-Sun: 8AM - 10PM', href: '#' }
+    { icon: Mail, label: t('contact.email'), value: 'info@cessarauto.com', href: 'mailto:info@cessarauto.com' },
+    { icon: Phone, label: t('contact.phone'), value: '+1 (555) 123-4567', href: 'tel:+15551234567' },
+    { icon: MapPin, label: t('contact.address'), value: '123 Luxury Lane, Beverly Hills, CA 90210', href: '#' },
+    { icon: Clock, label: t('contact.hours'), value: 'Mon-Sun: 8AM - 10PM', href: '#' }
   ];
 
   return (
@@ -41,10 +42,10 @@ const Contact = () => {
             className="text-center"
           >
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Get In Touch
+              {t('contact.getInTouch')}
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Ready to book your dream car? Have questions? We're here to help.
+              {t('contact.readyToBook')}
             </p>
           </motion.div>
         </div>
@@ -62,10 +63,10 @@ const Contact = () => {
                 transition={{ duration: 0.6 }}
               >
                 <h2 className={`text-3xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                  Contact Information
+                  {t('contact.contactInformation')}
                 </h2>
                 <p className={isDark ? 'text-gray-400 mb-8' : 'text-gray-600 mb-8'}>
-                  Fill out the form and our team will get back to you within 24 hours.
+                  {t('contact.fillOutForm')}
                 </p>
 
                 <div className="space-y-6">
@@ -109,10 +110,10 @@ const Contact = () => {
                       <CheckCircle className="w-10 h-10 text-green-600" />
                     </div>
                     <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                      Thank You!
+                      {t('contact.thankYou')}
                     </h3>
                     <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
-                      Your message has been sent successfully. We'll be in touch soon.
+                      {t('contact.messageSent')}
                     </p>
                   </motion.div>
                 ) : (
@@ -125,7 +126,7 @@ const Contact = () => {
                       >
                         <Car className="w-6 h-6 text-primary-600 mr-3" />
                         <div>
-                          <div className="text-sm text-primary-600 font-medium">Selected Vehicle</div>
+                          <div className="text-sm text-primary-600 font-medium">{t('contact.selectedVehicle')}</div>
                           <div className={isDark ? 'text-white font-semibold' : 'text-gray-900 font-semibold'}>{selectedCar.name}</div>
                         </div>
                       </motion.div>
@@ -135,11 +136,11 @@ const Contact = () => {
                       <div>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                           <User className="w-4 h-4 inline mr-1" />
-                          Full Name
+                          {t('contact.fullName')}
                         </label>
                         <input
                           type="text"
-                          {...register('name', { required: 'Name is required' })}
+                          {...register('name', { required: t('contact.nameRequired') })}
                           className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${
                             isDark ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'
                           }`}
@@ -153,13 +154,13 @@ const Contact = () => {
                       <div>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                           <Mail className="w-4 h-4 inline mr-1" />
-                          Email Address
+                          {t('contact.emailAddress')}
                         </label>
                         <input
                           type="email"
                           {...register('email', {
-                            required: 'Email is required',
-                            pattern: { value: /^\S+@\S+$/i, message: 'Invalid email' }
+                            required: t('contact.emailRequired'),
+                            pattern: { value: /^\S+@\S+$/i, message: t('contact.invalidEmail') }
                           })}
                           className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${
                             isDark ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'
@@ -176,11 +177,11 @@ const Contact = () => {
                       <div>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                           <Phone className="w-4 h-4 inline mr-1" />
-                          Phone Number
+                          {t('contact.phoneNumber')}
                         </label>
                         <input
                           type="tel"
-                          {...register('phone', { required: 'Phone is required' })}
+                          {...register('phone', { required: t('contact.phoneRequired') })}
                           className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${
                             isDark ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'
                           }`}
@@ -194,11 +195,11 @@ const Contact = () => {
                       <div>
                         <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                           <Calendar className="w-4 h-4 inline mr-1" />
-                          Preferred Date
+                          {t('contact.preferredDate')}
                         </label>
                         <input
                           type="date"
-                          {...register('date', { required: 'Date is required' })}
+                          {...register('date', { required: t('contact.dateRequired') })}
                           className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${
                             isDark ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'
                           }`}
@@ -211,15 +212,15 @@ const Contact = () => {
 
                     <div>
                       <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                        Message
+                        {t('contact.message')}
                       </label>
                       <textarea
-                        {...register('message', { required: 'Message is required' })}
+                        {...register('message', { required: t('contact.messageRequired') })}
                         rows={5}
                         className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none ${
                           isDark ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'
                         }`}
-                        placeholder="Tell us about your requirements..."
+                        placeholder={t('contact.tellUsRequirements')}
                       ></textarea>
                       {errors.message && (
                         <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
@@ -231,7 +232,7 @@ const Contact = () => {
                       className="w-full btn-primary flex items-center justify-center"
                     >
                       <Send className="w-5 h-5 mr-2" />
-                      Send Message
+                      {t('contact.sendMessage')}
                     </button>
                   </form>
                 )}

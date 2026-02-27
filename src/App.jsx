@@ -10,8 +10,6 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen flex flex-col">
-        {/* Hidden Google Translate container */}
-        <div id="google_translate_element" className="hidden"></div>
         <Navbar />
         <main className="flex-grow">
           <Routes>

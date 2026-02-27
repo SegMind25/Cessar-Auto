@@ -2,9 +2,11 @@ import { motion } from 'framer-motion';
 import { ExternalLink, Github, Layers } from 'lucide-react';
 import { portfolioProjects } from '../data/data';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const Portfolio = () => {
   const { isDark } = useTheme();
+  const { t } = useLanguage();
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
     animate: { opacity: 1, y: 0 },
@@ -32,11 +34,10 @@ const Portfolio = () => {
             className="text-center"
           >
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Our Portfolio
+              {t('portfolio.ourPortfolio')}
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Showcasing our expertise in automotive technology solutions.
-              From fleet management to booking platforms, we deliver excellence.
+              {t('portfolio.showcasingExpertise')}
             </p>
           </motion.div>
         </div>
@@ -52,10 +53,10 @@ const Portfolio = () => {
             className="grid grid-cols-2 md:grid-cols-4 gap-8"
           >
             {[
-              { value: '150+', label: 'Projects Completed' },
-              { value: '50+', label: 'Enterprise Clients' },
-              { value: '15+', label: 'Years Experience' },
-              { value: '99%', label: 'Client Satisfaction' }
+              { value: '150+', label: t('portfolio.projectsCompleted') },
+              { value: '50+', label: t('portfolio.enterpriseClients') },
+              { value: '15+', label: t('portfolio.yearsExperience') },
+              { value: '99%', label: t('portfolio.clientSatisfaction') }
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -84,10 +85,8 @@ const Portfolio = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="section-title">Featured Projects</h2>
-            <p className="section-subtitle">
-              Innovative solutions that drive the automotive industry forward
-            </p>
+            <h2 className="section-title">{t('portfolio.featuredProjects')}</h2>
+            <p className="section-subtitle">{t('portfolio.innovativeSolutions')}</p>
           </motion.div>
 
           <motion.div
@@ -142,13 +141,13 @@ const Portfolio = () => {
                   <div className="flex gap-4">
                     <button className="flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors">
                       <ExternalLink className="w-4 h-4 mr-2" />
-                      Live Demo
+                      {t('portfolio.liveDemo')}
                     </button>
                     <button className={`flex items-center font-medium transition-colors ${
                       isDark ? 'text-gray-400 hover:text-gray-300' : 'text-gray-600 hover:text-gray-700'
                     }`}>
                       <Github className="w-4 h-4 mr-2" />
-                      Source Code
+                      {t('portfolio.sourceCode')}
                     </button>
                   </div>
                 </div>
@@ -168,10 +167,8 @@ const Portfolio = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="section-title">Technologies We Use</h2>
-            <p className="section-subtitle">
-              Cutting-edge tech stack for modern automotive solutions
-            </p>
+            <h2 className="section-title">{t('portfolio.technologiesWeUse')}</h2>
+            <p className="section-subtitle">{t('portfolio.cuttingEdgeTech')}</p>
           </motion.div>
 
           <motion.div
@@ -213,16 +210,16 @@ const Portfolio = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-4xl font-bold mb-6">
-              Ready to Start Your Project?
+              {t('portfolio.readyToStart')}
             </h2>
             <p className="text-xl text-white/80 mb-10">
-              Let's build something amazing together. Get in touch with our team.
+              {t('portfolio.letsBuild')}
             </p>
             <a
               href="/contact"
               className="inline-block bg-white text-primary-600 font-semibold py-4 px-10 rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
             >
-              Contact Us
+              {t('portfolio.contactUs')}
             </a>
           </motion.div>
         </div>

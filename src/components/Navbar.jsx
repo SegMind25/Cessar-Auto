@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = () => {
   const { isDark, toggleTheme } = useTheme();
+  const { language, changeLanguage, t, languages } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [showTranslate, setShowTranslate] = useState(false);
   const location = useLocation();
 
@@ -17,38 +18,25 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const [scrolled, setScrolled] = useState(false);
+
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Fleet', path: '/fleet' },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Contact', path: '/contact' }
+    { name: t('nav.home'), path: '/' },
+    { name: t('nav.fleet'), path: '/fleet' },
+    { name: t('nav.portfolio'), path: '/portfolio' },
+    { name: t('nav.contact'), path: '/contact' }
   ];
 
   const isActive = (path) => location.pathname === path;
 
-  const languages = [
-    { code: 'en', name: 'English' },
-    { code: 'es', name: 'Español' },
-    { code: 'fr', name: 'Français' },
-    { code: 'de', name: 'Deutsch' },
-    { code: 'it', name: 'Italiano' },
-    { code: 'pt', name: 'Português' },
-    { code: 'zh', name: '中文' },
-    { code: 'ja', name: '日本語' },
-    { code: 'ko', name: '한국어' },
-    { code: 'ar', name: 'العربية' }
-  ];
-
   const handleLanguageChange = (langCode) => {
-    if (window.google?.translate?.translateElement) {
-      window.google.translate.translateElement.translatePage(langCode);
-    }
+    changeLanguage(langCode);
     setShowTranslate(false);
   };
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      scrolled 
+      scrolled
         ? isDark ? 'bg-gray-900/95 backdrop-blur-md shadow-lg' : 'bg-white/95 backdrop-blur-md shadow-lg'
         : 'bg-transparent'
     }`}>
@@ -66,7 +54,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
-                key={link.name}
+                key={link.path}
                 to={link.path}
                 className={`font-medium transition-colors duration-200 ${
                   scrolled
@@ -103,10 +91,8 @@ const Navbar = () => {
                     : 'text-white hover:bg-white/10'
                 }`}
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-                </svg>
-                <span className="text-sm font-medium">Translate</span>
+                <Globe className="w-5 h-5" />
+                <span className="text-sm font-medium">{t('nav.translate')}</span>
               </button>
 
               {showTranslate && (
@@ -117,11 +103,18 @@ const Navbar = () => {
                     <button
                       key={lang.code}
                       onClick={() => handleLanguageChange(lang.code)}
-                      className={`w-full text-left px-4 py-2 text-sm transition-colors ${
-                        isDark ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-100'
+                      className={`w-full text-left px-4 py-2 text-sm transition-colors flex items-center justify-between ${
+                        language === lang.code
+                          ? isDark ? 'bg-primary-600 text-white' : 'bg-primary-600 text-white'
+                          : isDark ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-100'
                       }`}
                     >
-                      {lang.name}
+                      <span>{lang.name}</span>
+                      {language === lang.code && (
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -129,7 +122,7 @@ const Navbar = () => {
             </div>
 
             <Link to="/contact" className="btn-primary">
-              Book Now
+              {t('nav.bookNow')}
             </Link>
           </div>
 
@@ -153,7 +146,7 @@ const Navbar = () => {
             <div className="px-4 py-4 space-y-4">
               {navLinks.map((link) => (
                 <Link
-                  key={link.name}
+                  key={link.path}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
                   className={`block py-2 font-medium ${
@@ -177,19 +170,21 @@ const Navbar = () => {
                 }`}
               >
                 {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                <span className="font-medium">{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+                <span className="font-medium">{isDark ? t('theme.lightMode') : t('theme.darkMode')}</span>
               </button>
 
               {/* Mobile Translate */}
               <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
-                <p className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'} mb-2`}>Translate</p>
+                <p className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'} mb-2`}>{t('nav.translate')}</p>
                 <div className="grid grid-cols-2 gap-2">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
                       onClick={() => handleLanguageChange(lang.code)}
                       className={`px-3 py-2 text-sm rounded-lg transition-colors ${
-                        isDark ? 'text-gray-300 bg-gray-800 hover:bg-gray-700' : 'text-gray-700 bg-gray-100 hover:bg-gray-200'
+                        language === lang.code
+                          ? 'bg-primary-600 text-white'
+                          : isDark ? 'text-gray-300 bg-gray-800 hover:bg-gray-700' : 'text-gray-700 bg-gray-100 hover:bg-gray-200'
                       }`}
                     >
                       {lang.name}
@@ -203,7 +198,7 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
                 className="block w-full text-center btn-primary"
               >
-                Book Now
+                {t('nav.bookNow')}
               </Link>
             </div>
           </motion.div>

@@ -4,9 +4,11 @@ import { Filter } from 'lucide-react';
 import { cars, categories } from '../data/data';
 import CarCard from '../components/CarCard';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const Fleet = () => {
   const { isDark } = useTheme();
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const filteredCars = selectedCategory === 'All'
@@ -26,11 +28,10 @@ const Fleet = () => {
             className="text-center"
           >
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Our Premium Fleet
+              {t('fleet.ourPremiumFleet')}
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Discover our collection of luxury, sports, and electric vehicles.
-              Each car is meticulously maintained for your ultimate driving experience.
+              {t('fleet.discoverCollection')}
             </p>
           </motion.div>
         </div>
@@ -42,7 +43,7 @@ const Fleet = () => {
           <div className="flex items-center justify-center flex-wrap gap-4">
             <div className={`flex items-center ${isDark ? 'text-gray-300' : 'text-gray-600'} mr-4`}>
               <Filter className="w-5 h-5 mr-2" />
-              <span className="font-medium">Filter:</span>
+              <span className="font-medium">{t('fleet.filter')}:</span>
             </div>
             {categories.map((category) => (
               <button
@@ -71,9 +72,9 @@ const Fleet = () => {
             className="mb-8"
           >
             <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
-              Showing <span className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{filteredCars.length}</span> vehicles
+              {t('fleet.showing')} <span className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{filteredCars.length}</span> {t('fleet.vehicles')}
               {selectedCategory !== 'All' && (
-                <span> in <span className="font-semibold text-primary-600">{selectedCategory}</span></span>
+                <span> {t('fleet.in')} <span className="font-semibold text-primary-600">{selectedCategory}</span></span>
               )}
             </p>
           </motion.div>
@@ -102,12 +103,12 @@ const Fleet = () => {
               animate={{ opacity: 1 }}
               className="text-center py-20"
             >
-              <p className={`text-xl ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>No vehicles found in this category.</p>
+              <p className={`text-xl ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{t('fleet.noVehiclesFound')}</p>
               <button
                 onClick={() => setSelectedCategory('All')}
                 className="mt-4 text-primary-600 hover:text-primary-700 font-medium"
               >
-                View all vehicles
+                {t('fleet.viewAllVehicles')}
               </button>
             </motion.div>
           )}

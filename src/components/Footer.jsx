@@ -1,36 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Car, Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const Footer = () => {
   const { isDark } = useTheme();
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
-
-  const footerLinks = {
-    company: [
-      { name: 'About Us', path: '/portfolio' },
-      { name: 'Our Fleet', path: '/fleet' },
-      { name: 'Contact', path: '/contact' }
-    ],
-    services: [
-      { name: 'Luxury Cars', path: '/fleet' },
-      { name: 'Sports Cars', path: '/fleet' },
-      { name: 'Electric Vehicles', path: '/fleet' },
-      { name: 'SUVs', path: '/fleet' }
-    ],
-    support: [
-      { name: 'FAQ', path: '/contact' },
-      { name: 'Terms of Service', path: '/' },
-      { name: 'Privacy Policy', path: '/' }
-    ]
-  };
-
-  const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' }
-  ];
 
   return (
     <footer className={`${isDark ? 'bg-gray-950 text-white' : 'bg-gray-900 text-white'}`}>
@@ -44,8 +20,7 @@ const Footer = () => {
               <span className="text-2xl font-bold">CessarAuto</span>
             </Link>
             <p className="text-gray-400 mb-6 max-w-sm">
-              Premium car rental services with over 15 years of excellence.
-              Experience luxury and comfort with our world-class fleet.
+              {t('footer.premiumCarRental')}
             </p>
             <div className="space-y-4">
               <div className="flex items-center space-x-3 text-gray-400">
@@ -64,9 +39,13 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Company</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('footer.company')}</h3>
             <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
+              {[
+                { name: t('footer.aboutUs'), path: '/portfolio' },
+                { name: t('footer.ourFleet'), path: '/fleet' },
+                { name: t('nav.contact'), path: '/contact' }
+              ].map((link) => (
                 <li key={link.name}>
                   <Link to={link.path} className="text-gray-400 hover:text-white transition-colors">
                     {link.name}
@@ -77,9 +56,14 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Services</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('footer.services')}</h3>
             <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
+              {[
+                { name: t('footer.luxuryCars'), path: '/fleet' },
+                { name: t('footer.sportsCars'), path: '/fleet' },
+                { name: t('footer.electricVehicles'), path: '/fleet' },
+                { name: t('footer.suvs'), path: '/fleet' }
+              ].map((link) => (
                 <li key={link.name}>
                   <Link to={link.path} className="text-gray-400 hover:text-white transition-colors">
                     {link.name}
@@ -90,9 +74,13 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Support</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('footer.support')}</h3>
             <ul className="space-y-3">
-              {footerLinks.support.map((link) => (
+              {[
+                { name: t('footer.faq'), path: '/contact' },
+                { name: t('footer.termsOfService'), path: '/' },
+                { name: t('footer.privacyPolicy'), path: '/' }
+              ].map((link) => (
                 <li key={link.name}>
                   <Link to={link.path} className="text-gray-400 hover:text-white transition-colors">
                     {link.name}
@@ -106,10 +94,15 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              © {currentYear} CessarAuto. All rights reserved.
+              © {currentYear} {t('footer.allRightsReserved')}
             </p>
             <div className="flex space-x-4">
-              {socialLinks.map((social) => (
+              {[
+                { icon: Facebook, href: '#', label: 'Facebook' },
+                { icon: Twitter, href: '#', label: 'Twitter' },
+                { icon: Instagram, href: '#', label: 'Instagram' },
+                { icon: Linkedin, href: '#', label: 'LinkedIn' }
+              ].map((social) => (
                 <a
                   key={social.label}
                   href={social.href}

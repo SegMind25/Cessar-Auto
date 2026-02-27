@@ -4,9 +4,11 @@ import { Calendar, User, CreditCard, Shield, Star, Clock, CheckCircle } from 'lu
 import { cars, testimonials, stats } from '../data/data';
 import CarCard from '../components/CarCard';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 
 const Home = () => {
   const { isDark } = useTheme();
+  const { t } = useLanguage();
   const featuredCars = cars.slice(0, 4);
 
   const fadeInUp = {
@@ -42,8 +44,8 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6"
           >
-            Drive Your
-            <span className="block text-primary-400">Dreams</span>
+            {t('hero.driveYour')}
+            <span className="block text-primary-400">{t('hero.dreams')}</span>
           </motion.h1>
 
           <motion.p
@@ -52,8 +54,7 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto"
           >
-            Experience luxury car rental like never before. Premium fleet,
-            exceptional service, unforgettable journeys.
+            {t('hero.experience')}
           </motion.p>
 
           <motion.div
@@ -63,10 +64,10 @@ const Home = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
             <Link to="/fleet" className="btn-primary text-lg px-8">
-              Explore Fleet
+              {t('hero.exploreFleet')}
             </Link>
             <Link to="/contact" className="btn-secondary text-lg px-8 bg-white/10 border-white/30 text-white hover:bg-white hover:text-gray-900">
-              Book Now
+              {t('hero.bookNow')}
             </Link>
           </motion.div>
         </motion.div>
@@ -105,7 +106,9 @@ const Home = () => {
                 <div className="text-4xl md:text-5xl font-bold text-primary-600 mb-2">
                   {stat.value}
                 </div>
-                <div className={isDark ? 'text-gray-400 font-medium' : 'text-gray-600 font-medium'}>{stat.label}</div>
+                <div className={isDark ? 'text-gray-400 font-medium' : 'text-gray-600 font-medium'}>
+                  {t(`stats.${stat.label.toLowerCase().replace(/\s+/g, '')}`)}
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -122,10 +125,8 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="section-title">Featured Vehicles</h2>
-            <p className="section-subtitle">
-              Choose from our premium selection of luxury and sports vehicles
-            </p>
+            <h2 className="section-title">{t('home.featuredVehicles')}</h2>
+            <p className="section-subtitle">{t('home.chooseFromPremium')}</p>
           </motion.div>
 
           <motion.div
@@ -148,7 +149,7 @@ const Home = () => {
             className="text-center mt-12"
           >
             <Link to="/fleet" className="btn-primary">
-              View All Vehicles
+              {t('home.viewAllVehicles')}
             </Link>
           </motion.div>
         </div>
@@ -164,10 +165,8 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="section-title">Why Choose CessarAuto</h2>
-            <p className="section-subtitle">
-              We deliver excellence in every aspect of our service
-            </p>
+            <h2 className="section-title">{t('home.whyChooseCessarAuto')}</h2>
+            <p className="section-subtitle">{t('home.weDeliverExcellence')}</p>
           </motion.div>
 
           <motion.div
@@ -178,10 +177,10 @@ const Home = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           >
             {[
-              { icon: Calendar, title: 'Easy Booking', desc: 'Simple and quick reservation process' },
-              { icon: User, title: '24/7 Support', desc: 'Round-the-clock customer assistance' },
-              { icon: CreditCard, title: 'Best Prices', desc: 'Competitive rates with no hidden fees' },
-              { icon: Shield, title: 'Full Insurance', desc: 'Comprehensive coverage included' }
+              { icon: Calendar, title: t('home.easyBooking'), desc: t('home.easyBookingDesc') },
+              { icon: User, title: t('home.support247'), desc: t('home.support247Desc') },
+              { icon: CreditCard, title: t('home.bestPrices'), desc: t('home.bestPricesDesc') },
+              { icon: Shield, title: t('home.fullInsurance'), desc: t('home.fullInsuranceDesc') }
             ].map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -211,10 +210,8 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="section-title text-white">Client Testimonials</h2>
-            <p className="section-subtitle text-gray-300">
-              Hear from our satisfied customers
-            </p>
+            <h2 className="section-title text-white">{t('home.clientTestimonials')}</h2>
+            <p className="section-subtitle text-gray-300">{t('home.hearFromSatisfied')}</p>
           </motion.div>
 
           <motion.div
@@ -262,16 +259,16 @@ const Home = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="section-title mb-6">Ready to Drive Your Dream?</h2>
+            <h2 className="section-title mb-6">{t('home.readyToDrive')}</h2>
             <p className={`text-xl mb-10 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-              Book your luxury vehicle today and experience unparalleled service
+              {t('home.bookYourLuxury')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact" className="btn-primary text-lg px-8">
-                Book Now
+                {t('nav.bookNow')}
               </Link>
               <Link to="/fleet" className="btn-secondary text-lg px-8">
-                View Fleet
+                {t('home.viewFleet')}
               </Link>
             </div>
           </motion.div>
