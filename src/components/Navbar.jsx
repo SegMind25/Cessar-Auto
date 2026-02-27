@@ -38,15 +38,15 @@ const Navbar = () => {
     <nav className={`fixed w-full z-50 transition-all duration-300 ${
       scrolled
         ? isDark ? 'bg-gray-900/95 backdrop-blur-md shadow-lg' : 'bg-white/95 backdrop-blur-md shadow-lg'
-        : 'bg-transparent'
+        : isDark ? 'bg-transparent' : 'bg-white/95 backdrop-blur-md shadow-md'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center space-x-2">
-            <div className={`p-2 rounded-lg ${scrolled ? (isDark ? 'bg-primary-600' : 'bg-primary-600') : (isDark ? 'bg-gray-800' : 'bg-white')}`}>
-              <Car className={`w-6 h-6 ${scrolled ? 'text-white' : (isDark ? 'text-primary-600' : 'text-primary-600')}`} />
+            <div className={`p-2 rounded-lg ${scrolled ? (isDark ? 'bg-primary-600' : 'bg-primary-600') : (isDark ? 'bg-gray-800' : 'bg-primary-600')}`}>
+              <Car className={`w-6 h-6 ${scrolled ? 'text-white' : (isDark ? 'text-primary-600' : 'text-white')}`} />
             </div>
-            <span className={`text-2xl font-bold ${scrolled ? (isDark ? 'text-white' : 'text-gray-900') : 'text-white'}`}>
+            <span className={`text-2xl font-bold ${scrolled ? (isDark ? 'text-white' : 'text-gray-900') : (isDark ? 'text-white' : 'text-gray-900')}`}>
               CessarAuto
             </span>
           </Link>
@@ -128,7 +128,7 @@ const Navbar = () => {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`md:hidden p-2 rounded-lg ${scrolled ? (isDark ? 'text-white' : 'text-gray-900') : 'text-white'}`}
+            className={`md:hidden p-2 rounded-lg ${scrolled ? (isDark ? 'text-white' : 'text-gray-900') : (isDark ? 'text-white' : 'text-gray-900')}`}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
