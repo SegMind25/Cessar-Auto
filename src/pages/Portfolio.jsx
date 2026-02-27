@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 import { ExternalLink, Github, Layers } from 'lucide-react';
 import { portfolioProjects } from '../data/data';
+import { useTheme } from '../context/ThemeContext';
 
 const Portfolio = () => {
+  const { isDark } = useTheme();
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
     animate: { opacity: 1, y: 0 },
@@ -33,7 +35,7 @@ const Portfolio = () => {
               Our Portfolio
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Showcasing our expertise in automotive technology solutions. 
+              Showcasing our expertise in automotive technology solutions.
               From fleet management to booking platforms, we deliver excellence.
             </p>
           </motion.div>
@@ -41,7 +43,7 @@ const Portfolio = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+      <section className={`py-16 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -65,7 +67,7 @@ const Portfolio = () => {
                 <div className="text-4xl md:text-5xl font-bold text-primary-600 mb-2">
                   {stat.value}
                 </div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
+                <div className={isDark ? 'text-gray-400 font-medium' : 'text-gray-600 font-medium'}>{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -73,7 +75,7 @@ const Portfolio = () => {
       </section>
 
       {/* Projects Grid */}
-      <section className="py-20 bg-gray-50">
+      <section className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -114,33 +116,37 @@ const Portfolio = () => {
                     </span>
                   </div>
                 </div>
-                
+
                 <div className="p-8">
-                  <h3 className="text-2xl font-bold mb-3 text-gray-900">
+                  <h3 className={`text-2xl font-bold mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                     {project.title}
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className={isDark ? 'text-gray-400 mb-6' : 'text-gray-600 mb-6'}>
                     {project.description}
                   </p>
-                  
+
                   <div className="flex flex-wrap gap-2 mb-6">
                     {project.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="flex items-center bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+                        className={`flex items-center px-3 py-1 rounded-full text-sm ${
+                          isDark ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-700'
+                        }`}
                       >
                         <Layers className="w-3 h-3 mr-1" />
                         {tech}
                       </span>
                     ))}
                   </div>
-                  
+
                   <div className="flex gap-4">
                     <button className="flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors">
                       <ExternalLink className="w-4 h-4 mr-2" />
                       Live Demo
                     </button>
-                    <button className="flex items-center text-gray-600 hover:text-gray-700 font-medium transition-colors">
+                    <button className={`flex items-center font-medium transition-colors ${
+                      isDark ? 'text-gray-400 hover:text-gray-300' : 'text-gray-600 hover:text-gray-700'
+                    }`}>
                       <Github className="w-4 h-4 mr-2" />
                       Source Code
                     </button>
@@ -153,7 +159,7 @@ const Portfolio = () => {
       </section>
 
       {/* Technologies Section */}
-      <section className="py-20 bg-white">
+      <section className={`py-20 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -176,7 +182,7 @@ const Portfolio = () => {
             className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6"
           >
             {[
-              'React', 'Next.js', 'Node.js', 'TypeScript', 
+              'React', 'Next.js', 'Node.js', 'TypeScript',
               'PostgreSQL', 'MongoDB', 'AWS', 'Docker',
               'Kubernetes', 'Redis', 'GraphQL', 'Python'
             ].map((tech, index) => (
@@ -186,9 +192,11 @@ const Portfolio = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="bg-gray-50 rounded-xl p-6 text-center hover:bg-primary-50 hover:shadow-lg transition-all duration-300"
+                className={`rounded-xl p-6 text-center hover:shadow-lg transition-all duration-300 ${
+                  isDark ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-gray-50 text-gray-900 hover:bg-primary-50'
+                }`}
               >
-                <div className="text-lg font-semibold text-gray-900">{tech}</div>
+                <div className="text-lg font-semibold">{tech}</div>
               </motion.div>
             ))}
           </motion.div>

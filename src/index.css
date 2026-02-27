@@ -12,7 +12,7 @@
   --color-primary-700: #1d4ed8;
   --color-primary-800: #1e40af;
   --color-primary-900: #1e3a8a;
-  
+
   --color-accent-50: #fef2f2;
   --color-accent-100: #fee2e2;
   --color-accent-200: #fecaca;
@@ -34,6 +34,54 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Dark mode defaults */
+html.dark body {
+  background-color: #0f172a;
+  color: #f1f5f9;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+/* Google Translate Styles */
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+#google_translate_element {
+  position: fixed;
+  top: -9999px;
+  left: -9999px;
+}
+
+.goog-te-gadget-simple {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.goog-te-gadget-simple span {
+  color: inherit !important;
+}
+
+/* Hide Google Translate branding */
+.goog-logo-link {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  color: transparent !important;
+}
+
 @layer components {
   .btn-primary {
     background-color: rgb(37 99 235);
@@ -43,13 +91,13 @@ body {
     border-radius: 0.5rem;
     transition: all 0.3s;
   }
-  
+
   .btn-primary:hover {
     background-color: rgb(29 78 216);
     transform: scale(1.05);
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
   }
-  
+
   .btn-secondary {
     background-color: transparent;
     border: 2px solid rgb(37 99 235);
@@ -59,12 +107,12 @@ body {
     border-radius: 0.5rem;
     transition: all 0.3s;
   }
-  
+
   .btn-secondary:hover {
     background-color: rgb(37 99 235);
     color: white;
   }
-  
+
   .card {
     background-color: white;
     border-radius: 0.75rem;
@@ -72,30 +120,47 @@ body {
     overflow: hidden;
     transition: all 0.3s;
   }
-  
+
   .card:hover {
     box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
     transform: translateY(-0.5rem);
   }
-  
+
+  html.dark .card {
+    background-color: #1e293b;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3);
+  }
+
+  html.dark .card:hover {
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+  }
+
   .section-title {
     font-size: 2.25rem;
     font-weight: 700;
     color: rgb(17 24 39);
     margin-bottom: 1rem;
   }
-  
+
+  html.dark .section-title {
+    color: #f1f5f9;
+  }
+
   @media (min-width: 768px) {
     .section-title {
       font-size: 3rem;
     }
   }
-  
+
   .section-subtitle {
     font-size: 1.125rem;
     color: rgb(75 85 99);
     max-width: 42rem;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  html.dark .section-subtitle {
+    color: #94a3b8;
   }
 }

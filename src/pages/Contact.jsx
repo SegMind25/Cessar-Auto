@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, Car, Calendar, User } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const Contact = () => {
+  const { isDark } = useTheme();
   const location = useLocation();
   const selectedCar = location.state?.selectedCar;
   const [submitted, setSubmitted] = useState(false);
@@ -49,7 +51,7 @@ const Contact = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 bg-gray-50">
+      <section className={`py-20 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Info */}
@@ -59,10 +61,10 @@ const Contact = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className="text-3xl font-bold mb-6 text-gray-900">
+                <h2 className={`text-3xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   Contact Information
                 </h2>
-                <p className="text-gray-600 mb-8">
+                <p className={isDark ? 'text-gray-400 mb-8' : 'text-gray-600 mb-8'}>
                   Fill out the form and our team will get back to you within 24 hours.
                 </p>
 
@@ -80,8 +82,8 @@ const Contact = () => {
                         <info.icon className="w-6 h-6 text-primary-600 group-hover:text-white transition-colors" />
                       </div>
                       <div>
-                        <div className="text-sm text-gray-500 font-medium">{info.label}</div>
-                        <div className="text-gray-900 font-semibold">{info.value}</div>
+                        <div className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{info.label}</div>
+                        <div className={isDark ? 'text-white font-semibold' : 'text-gray-900 font-semibold'}>{info.value}</div>
                       </div>
                     </motion.a>
                   ))}
@@ -95,7 +97,7 @@ const Contact = () => {
                 initial={{ opacity: 0, x: 40 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-white rounded-2xl shadow-xl p-8 md:p-10"
+                className={`${isDark ? 'bg-gray-900' : 'bg-white'} rounded-2xl shadow-xl p-8 md:p-10`}
               >
                 {submitted ? (
                   <motion.div
@@ -106,10 +108,10 @@ const Contact = () => {
                     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="w-10 h-10 text-green-600" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                       Thank You!
                     </h3>
-                    <p className="text-gray-600">
+                    <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
                       Your message has been sent successfully. We'll be in touch soon.
                     </p>
                   </motion.div>
@@ -119,26 +121,28 @@ const Contact = () => {
                       <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-primary-50 border border-primary-200 rounded-lg p-4 flex items-center"
+                        className={`${isDark ? 'bg-gray-800 border-gray-700' : 'bg-primary-50 border-primary-200'} rounded-lg p-4 flex items-center`}
                       >
                         <Car className="w-6 h-6 text-primary-600 mr-3" />
                         <div>
                           <div className="text-sm text-primary-600 font-medium">Selected Vehicle</div>
-                          <div className="text-gray-900 font-semibold">{selectedCar.name}</div>
+                          <div className={isDark ? 'text-white font-semibold' : 'text-gray-900 font-semibold'}>{selectedCar.name}</div>
                         </div>
                       </motion.div>
                     )}
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                           <User className="w-4 h-4 inline mr-1" />
                           Full Name
                         </label>
                         <input
                           type="text"
                           {...register('name', { required: 'Name is required' })}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${
+                            isDark ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'
+                          }`}
                           placeholder="John Doe"
                         />
                         {errors.name && (
@@ -147,17 +151,19 @@ const Contact = () => {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                           <Mail className="w-4 h-4 inline mr-1" />
                           Email Address
                         </label>
                         <input
                           type="email"
-                          {...register('email', { 
+                          {...register('email', {
                             required: 'Email is required',
                             pattern: { value: /^\S+@\S+$/i, message: 'Invalid email' }
                           })}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${
+                            isDark ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'
+                          }`}
                           placeholder="john@example.com"
                         />
                         {errors.email && (
@@ -168,14 +174,16 @@ const Contact = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                           <Phone className="w-4 h-4 inline mr-1" />
                           Phone Number
                         </label>
                         <input
                           type="tel"
                           {...register('phone', { required: 'Phone is required' })}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${
+                            isDark ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'
+                          }`}
                           placeholder="+1 (555) 123-4567"
                         />
                         {errors.phone && (
@@ -184,14 +192,16 @@ const Contact = () => {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                           <Calendar className="w-4 h-4 inline mr-1" />
                           Preferred Date
                         </label>
                         <input
                           type="date"
                           {...register('date', { required: 'Date is required' })}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all ${
+                            isDark ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'
+                          }`}
                         />
                         {errors.date && (
                           <p className="mt-1 text-sm text-red-600">{errors.date.message}</p>
@@ -200,13 +210,15 @@ const Contact = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className={`block text-sm font-medium mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                         Message
                       </label>
                       <textarea
                         {...register('message', { required: 'Message is required' })}
                         rows={5}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
+                        className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none ${
+                          isDark ? 'bg-gray-800 border-gray-700 text-white' : 'bg-white border-gray-300 text-gray-900'
+                        }`}
                         placeholder="Tell us about your requirements..."
                       ></textarea>
                       {errors.message && (

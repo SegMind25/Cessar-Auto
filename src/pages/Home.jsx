@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { Calendar, User, CreditCard, Shield, Star, Clock, CheckCircle } from 'lucide-react';
 import { cars, testimonials, stats } from '../data/data';
 import CarCard from '../components/CarCard';
+import { useTheme } from '../context/ThemeContext';
 
 const Home = () => {
+  const { isDark } = useTheme();
   const featuredCars = cars.slice(0, 4);
 
   const fadeInUp = {
@@ -27,7 +29,7 @@ const Home = () => {
       <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-primary-900">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920')] bg-cover bg-center opacity-20"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-gray-900/80"></div>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -43,17 +45,17 @@ const Home = () => {
             Drive Your
             <span className="block text-primary-400">Dreams</span>
           </motion.h1>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto"
           >
-            Experience luxury car rental like never before. Premium fleet, 
+            Experience luxury car rental like never before. Premium fleet,
             exceptional service, unforgettable journeys.
           </motion.p>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -82,7 +84,7 @@ const Home = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-white">
+      <section className={`py-20 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -103,7 +105,7 @@ const Home = () => {
                 <div className="text-4xl md:text-5xl font-bold text-primary-600 mb-2">
                   {stat.value}
                 </div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
+                <div className={isDark ? 'text-gray-400 font-medium' : 'text-gray-600 font-medium'}>{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -111,7 +113,7 @@ const Home = () => {
       </section>
 
       {/* Featured Fleet */}
-      <section className="py-24 bg-gray-50">
+      <section className={`py-24 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -153,7 +155,7 @@ const Home = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 bg-white">
+      <section className={`py-24 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -184,13 +186,15 @@ const Home = () => {
               <motion.div
                 key={feature.title}
                 variants={fadeInUp}
-                className="text-center p-6 rounded-xl bg-gray-50 hover:bg-primary-50 transition-colors"
+                className={`text-center p-6 rounded-xl transition-colors ${
+                  isDark ? 'bg-gray-800 hover:bg-gray-700' : 'bg-gray-50 hover:bg-primary-50'
+                }`}
               >
                 <div className="w-16 h-16 mx-auto mb-4 bg-primary-100 rounded-full flex items-center justify-center">
                   <feature.icon className="w-8 h-8 text-primary-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.desc}</p>
+                <h3 className={`text-xl font-semibold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>{feature.title}</h3>
+                <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>{feature.desc}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -250,7 +254,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-white">
+      <section className={`py-24 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -259,7 +263,7 @@ const Home = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="section-title mb-6">Ready to Drive Your Dream?</h2>
-            <p className="text-xl text-gray-600 mb-10">
+            <p className={`text-xl mb-10 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
               Book your luxury vehicle today and experience unparalleled service
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

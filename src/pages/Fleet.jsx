@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import { Filter } from 'lucide-react';
 import { cars, categories } from '../data/data';
 import CarCard from '../components/CarCard';
+import { useTheme } from '../context/ThemeContext';
 
 const Fleet = () => {
+  const { isDark } = useTheme();
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const filteredCars = selectedCategory === 'All'
@@ -27,7 +29,7 @@ const Fleet = () => {
               Our Premium Fleet
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Discover our collection of luxury, sports, and electric vehicles. 
+              Discover our collection of luxury, sports, and electric vehicles.
               Each car is meticulously maintained for your ultimate driving experience.
             </p>
           </motion.div>
@@ -35,10 +37,10 @@ const Fleet = () => {
       </section>
 
       {/* Filter Section */}
-      <section className="py-12 bg-white border-b sticky top-20 z-40">
+      <section className={`py-12 ${isDark ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'} border-b sticky top-20 z-40`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center flex-wrap gap-4">
-            <div className="flex items-center text-gray-600 mr-4">
+            <div className={`flex items-center ${isDark ? 'text-gray-300' : 'text-gray-600'} mr-4`}>
               <Filter className="w-5 h-5 mr-2" />
               <span className="font-medium">Filter:</span>
             </div>
@@ -49,7 +51,7 @@ const Fleet = () => {
                 className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
                   selectedCategory === category
                     ? 'bg-primary-600 text-white shadow-lg transform scale-105'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    : isDark ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
                 {category}
@@ -60,7 +62,7 @@ const Fleet = () => {
       </section>
 
       {/* Cars Grid */}
-      <section className="py-16 bg-gray-50">
+      <section className={`py-16 ${isDark ? 'bg-gray-800' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0 }}
@@ -68,8 +70,8 @@ const Fleet = () => {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <p className="text-gray-600">
-              Showing <span className="font-semibold text-gray-900">{filteredCars.length}</span> vehicles
+            <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>
+              Showing <span className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{filteredCars.length}</span> vehicles
               {selectedCategory !== 'All' && (
                 <span> in <span className="font-semibold text-primary-600">{selectedCategory}</span></span>
               )}
@@ -100,7 +102,7 @@ const Fleet = () => {
               animate={{ opacity: 1 }}
               className="text-center py-20"
             >
-              <p className="text-xl text-gray-600">No vehicles found in this category.</p>
+              <p className={`text-xl ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>No vehicles found in this category.</p>
               <button
                 onClick={() => setSelectedCategory('All')}
                 className="mt-4 text-primary-600 hover:text-primary-700 font-medium"
